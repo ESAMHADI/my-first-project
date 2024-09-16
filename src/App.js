@@ -121,7 +121,7 @@ class App extends Component {
 
     // fetch("https://api.clarifai.com/v2/models/face-detection/versions/6dc7e46bc9124c5c8824be4822abe105/outputs", requestOptions)
     //   .then(response => response.json())
-      // .then(result => this.displayFaceBox(this.calculateFaceLocation(result)))
+      // .then(result => this.displayFaceBox(this.calculateFaceLocation(result)))  // all the code above has moved to the server
       .then(response => {
        
         if (response) {
