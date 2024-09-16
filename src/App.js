@@ -77,42 +77,50 @@ class App extends Component {
   onButtonSubmit = () => {
 
     this.setState({ imageUrl: this.state.input });
-    const PAT = 'a1e24dc6f27d45af91b64b80bbc7a0dd';
-    const USER_ID = 'clarifai';
-    const APP_ID = 'main';
-    const MODEL_ID = 'face-detection';
-    const MODEL_VERSION_ID = '6dc7e46bc9124c5c8824be4822abe105';
-    // image url
-    const IMAGE_URL = this.state.input;
+    fetch('http://localhost:4000/imageurl', {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        input: this.state.input
+      })
+    })
+    .then(response => response.json())
+    // const PAT = 'a1e24dc6f27d45af91b64b80bbc7a0dd';
+    // const USER_ID = 'clarifai';
+    // const APP_ID = 'main';
+    // const MODEL_ID = 'face-detection';
+    // const MODEL_VERSION_ID = '6dc7e46bc9124c5c8824be4822abe105';
+    // // image url
+    // const IMAGE_URL = this.state.input;
 
-    const raw = JSON.stringify({
-      "user_app_id": {
-        "user_id": USER_ID,
-        "app_id": APP_ID
-      },
-      "inputs": [
-        {
-          "data": {
-            "image": {
-              "url": IMAGE_URL
-              // "base64": IMAGE_BYTES_STRING
-            }
-          }
-        }
-      ]
-    });
+    // const raw = JSON.stringify({
+    //   "user_app_id": {
+    //     "user_id": USER_ID,
+    //     "app_id": APP_ID
+    //   },
+    //   "inputs": [
+    //     {
+    //       "data": {
+    //         "image": {
+    //           "url": IMAGE_URL
+    //           // "base64": IMAGE_BYTES_STRING
+    //         }
+    //       }
+    //     }
+    //   ]
+    // });
 
-    const requestOptions = {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Authorization': 'Key ' + PAT
-      },
-      body: raw
-    };
+    // const requestOptions = {
+    //   method: 'POST',
+    //   headers: {
+    //     'Accept': 'application/json',
+    //     'Authorization': 'Key ' + PAT
+    //   },
+    //   body: raw
+    // };
 
-    fetch("https://api.clarifai.com/v2/models/face-detection/versions/6dc7e46bc9124c5c8824be4822abe105/outputs", requestOptions)
-      .then(response => response.json())
+    // fetch("https://api.clarifai.com/v2/models/face-detection/versions/6dc7e46bc9124c5c8824be4822abe105/outputs", requestOptions)
+    //   .then(response => response.json())
       // .then(result => this.displayFaceBox(this.calculateFaceLocation(result)))
       .then(response => {
        
@@ -126,6 +134,7 @@ class App extends Component {
           })
             .then(response => response.json())
             .then(count => {
+              console.log({count})
               this.setState(Object.assign(this.state.user, { entries: count }))
 
             })
