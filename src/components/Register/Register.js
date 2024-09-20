@@ -20,7 +20,7 @@ class Register extends React.Component  {
     }
 
     onSubmitSignIn = () => {
-        fetch('https://my-first-bak-end-opject-5.onrender.com/register', {
+        fetch('https://my-first-bak-end-opject-1.onrender.com/register', {
             
             method: 'POST',
             headers: {
